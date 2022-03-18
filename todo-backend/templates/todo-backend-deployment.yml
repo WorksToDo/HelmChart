@@ -1,0 +1,46 @@
+apiVersion: {{.Values.apiVersion.deployments}}
+kind: Deployment
+metadata:
+  name: {{.Values.api.label}}-deployment
+  labels:
+    app: {{.Values.api.label}}
+spec:
+  replicas: {{.Values.api.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Values.api.label}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.api.label}}
+    spec:
+      containers:
+        - name: {{.Values.api.label}}
+          image: {{.Values.api.image.name}}:{{.Values.api.image.tag}}
+          ports:
+            - containerPort: {{.Values.api.port | b64dec}}
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key: user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key: dbName
+            - name: DB_HOST
+              value: {{.Values.db.label}}-service
+            - name: DB_PORT
+              value: {{.Values.db.servicePort | quote}}
+            - name: SERVER_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.api.label}}-secret
+                  key: port

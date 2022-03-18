@@ -1,0 +1,13 @@
+apiVersion: {{.Values.apiVersion.secretsConfigs}}
+kind: Service
+metadata:
+  name: {{.Values.db.label}}-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{.Values.db.label}}
+  ports:
+    - protocol: TCP
+      name: http
+      port: {{.Values.db.servicePort}}
+      targetPort: {{.Values.db.containerPort}}

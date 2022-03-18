@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.db.label }}-pv
+  labels:
+    type: {{ .Values.db.pv.type }}
+spec:
+  storageClassName: {{ .Values.db.pv.className }}
+  capacity:
+    storage: {{ .Values.db.pv.capacity}}
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"

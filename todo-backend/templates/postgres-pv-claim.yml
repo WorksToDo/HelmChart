@@ -1,0 +1,13 @@
+apiVersion: {{ .Values.apiVersion.secretsConfigs}}
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: {{.Values.db.label}}
+  name: {{.Values.db.label}}-pv-claim
+spec:
+  storageClassName: {{.Values.db.pv.className}}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{.Values.db.pv.capacity}}

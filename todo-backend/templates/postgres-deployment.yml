@@ -1,0 +1,44 @@
+apiVersion: {{.Values.apiVersion.deployments}}
+kind: Deployment
+metadata:
+  name: {{.Values.db.label}}-deployment
+  labels:
+    app: {{.Values.db.label}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.db.label}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.db.label}}
+    spec:
+      containers:
+        - name: {{.Values.db.label}}
+          image: {{.Values.db.image.name}}:{{.Values.db.image.tag}}
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key: {{.Values.db.label}}-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key:  {{.Values.db.label}}-password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key:  postgre-db-name
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: {{.Values.db.label}}-pv-claim
+      volumes:
+        - name: {{.Values.db.label}}-pv-claim
+            persistentVolumeClaim:
+              claimName: {{.Values.db.label}}-pv-claim

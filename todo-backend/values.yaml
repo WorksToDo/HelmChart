@@ -1,0 +1,29 @@
+
+
+db:
+  user: cG9zdGdyZXM=
+  password: dG9kbzEyMw==
+  dbName: cG9zdGdyZXM=
+  servicePort: 8050
+  containerPort: 5432
+  label: postgres
+  image:
+    name: postgres
+    tag: latest
+  pv:
+    type: local
+    className: manual
+    capacity: 100M
+
+api:
+  port: Nzg1MA==
+  label: restaurantapi
+  replicaCount: 1
+  image:
+    name: eneskzlcn/todo-backend
+    tag: latest
+  servicePort: 8080
+
+apiVersion:
+  secretsConfigs: v1
+  deployments: apps/v1
