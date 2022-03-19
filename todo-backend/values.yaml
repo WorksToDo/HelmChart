@@ -17,7 +17,7 @@ db:
 
 api:
   port: Nzg1MA==
-  label: restaurantapi
+  label: todo-backend
   replicaCount: 1
   image:
     name: eneskzlcn/todo-backend

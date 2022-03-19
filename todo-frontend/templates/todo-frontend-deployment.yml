@@ -1,0 +1,29 @@
+apiVersion: {{.Values.apiVersion.deployments}}
+kind: Deployment
+metadata:
+  name: {{.Values.frontend.label}}-deployment
+  labels:
+    app: {{.Values.frontend.label}}
+spec:
+  replicas: {{.Values.frontend.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Values.frontend.label}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.frontend.label}}
+    spec:
+      containers:
+        - name: {{.Values.frontend.label}}
+          image: {{.Values.frontend.image.name}}:{{.Values.frontend.image.tag}}
+          ports:
+            - containerPort: {{.Values.frontend.port | b64dec}}
+          env:
+            - name: BACKEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.db.label}}-secret
+                  key: backend-url
+
+

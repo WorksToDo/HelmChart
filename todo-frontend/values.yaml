@@ -1,0 +1,14 @@
+frontend:
+  port: MzAwMA==
+  label: todo-frontend
+  replicaCount: 1
+  image:
+    name: eneskzlcn/todo-frontend
+    tag: latest
+  servicePort: 8090
+
+backendUrl: aHR0cDovL3RvZG8tYmFja2VuZC1zZXJ2aWNlOjgwODAv
+
+apiVersion:
+  secretsConfigs: v1
+  deployments: apps/v1
