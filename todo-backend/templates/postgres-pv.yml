@@ -1,14 +1,9 @@
-kind: PersistentVolume
-apiVersion: v1
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: {{ .Values.db.label }}-pv
-  labels:
-    type: {{ .Values.db.pv.type }}
-spec:
-  storageClassName: {{ .Values.db.pv.className }}
-  capacity:
-    storage: {{ .Values.db.pv.capacity}}
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
+  name: postgres-pv
+provisioner: pd.csi.storage.gke.io
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+  type: pd-balanced

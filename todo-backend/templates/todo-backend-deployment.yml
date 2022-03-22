@@ -18,7 +18,7 @@ spec:
         - name: {{.Values.api.label}}
           image: {{.Values.api.image.name}}:{{.Values.api.image.tag}}
           ports:
-            - containerPort: {{.Values.api.port | b64dec}}
+            - containerPort: {{.Values.api.port}}
           env:
             - name: DB_USERNAME
               valueFrom:
@@ -40,7 +40,4 @@ spec:
             - name: DB_PORT
               value: {{.Values.db.servicePort | quote}}
             - name: SERVER_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: {{.Values.api.label}}-secret
-                  key: port
+              value: {{.Values.api.port | quote}}

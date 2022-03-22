@@ -11,12 +11,10 @@ db:
     name: postgres
     tag: latest
   pv:
-    type: local
-    className: manual
     capacity: 100M
 
 api:
-  port: Nzg1MA==
+  port: 4000
   label: todo-backend
   replicaCount: 1
   image:

@@ -24,21 +24,23 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{.Values.db.label}}-secret
-                  key: {{.Values.db.label}}-user
+                  key: user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{.Values.db.label}}-secret
-                  key:  {{.Values.db.label}}-password
+                  key:  password
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: {{.Values.db.label}}-secret
-                  key:  postgre-db-name
+                  key:  dbName
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: {{.Values.db.label}}-pv-claim
+              name: {{.Values.db.label}}-db
       volumes:
-        - name: {{.Values.db.label}}-pv-claim
-            persistentVolumeClaim:
-              claimName: {{.Values.db.label}}-pv-claim
+        - name: {{.Values.db.label}}-db
+          persistentVolumeClaim:
+            claimName: {{.Values.db.label}}-pv-claim
