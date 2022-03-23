@@ -9,4 +9,4 @@ spec:
   ports:
     - protocol: TCP
       port: {{.Values.frontend.servicePort}}
-      targetPort: {{.Values.frontend.port | b64dec}}
+      targetPort: {{.Values.frontend.port }}

@@ -1,5 +1,5 @@
 frontend:
-  port: MzAwMA==
+  port: 3000
   label: todo-frontend
   replicaCount: 1
   image:
@@ -7,7 +7,7 @@ frontend:
     tag: latest
   servicePort: 8090
 
-backendUrl: aHR0cDovL3RvZG8tYmFja2VuZC1zZXJ2aWNlOjgwODAv
+backendUrl: http://34.116.254.246:8080/
 
 apiVersion:
   secretsConfigs: v1

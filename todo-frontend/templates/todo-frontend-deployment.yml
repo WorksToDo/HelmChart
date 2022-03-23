@@ -18,12 +18,9 @@ spec:
         - name: {{.Values.frontend.label}}
           image: {{.Values.frontend.image.name}}:{{.Values.frontend.image.tag}}
           ports:
-            - containerPort: {{.Values.frontend.port | b64dec}}
+            - containerPort: {{.Values.frontend.port }}
           env:
             - name: BACKEND_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{.Values.frontend.label}}-secret
-                  key: backend-url
+              value: {{.Values.backendUrl | quote }}
 
 
