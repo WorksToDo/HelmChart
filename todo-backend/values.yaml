@@ -25,3 +25,5 @@ api:
 apiVersion:
   secretsConfigs: v1
   deployments: apps/v1
+
+deployEnv: test

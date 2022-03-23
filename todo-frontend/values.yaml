@@ -7,8 +7,8 @@ frontend:
     tag: latest
   servicePort: 8090
 
-backendUrl: http://34.116.254.246:8080/
-
 apiVersion:
   secretsConfigs: v1
   deployments: apps/v1
+
+deployEnv: test
